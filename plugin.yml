@@ -1,0 +1,25 @@
+name: ${project.name}
+version: ${project.version}
+author: bermudalocket
+authors: []
+description: ${project.description}
+website: ${project.url}
+main: com.bermudalocket.smartmobs.SmartMobs
+softdepend: [ Multiverse-Core, WorldGuard ]
+depend: [ EntityMeta ]
+
+permissions:
+  smartmobs.admin:
+    description: admin
+    default: op
+
+commands:
+  sm:
+    description: ${project.name} command
+    permission: smartmobs.admin
+    usage: |
+
+      §3/<command> butcher§f - Butcher nearby entities.
+      §3/<command> gps§f - Prints your current zone to chat.
+      §3/<command> reload§f - Reload the configuration.
+      §3/<command> zone§f - Manage zones.
