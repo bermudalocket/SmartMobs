@@ -15,12 +15,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.Plugin;
@@ -32,6 +33,7 @@ import java.util.HashSet;
 import static com.bermudalocket.smartmobs.Util.CYAN;
 import static com.bermudalocket.smartmobs.Util.GRAY;
 
+// ----------------------------------------------------------------------------------------------------------
 /**
  * The main plugin and event handling class.
  */
@@ -192,6 +194,11 @@ public final class SmartMobs extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * Colorizes death messages in chat.
+     *
+     * @param e the {@link PlayerDeathEvent}.
+     */
     @EventHandler
     protected void onPlayerDeath(PlayerDeathEvent e) {
         e.setDeathMessage(Configuration.DEATH_MSG_COLOR + e.getDeathMessage());
@@ -219,13 +226,13 @@ public final class SmartMobs extends JavaPlugin implements Listener {
     /**
      * Updates a mob's health name tag whenever it takes damage.
      *
-     * @param e the {@link EntityDamageByEntityEvent}.
+     * @param e the {@link EntityDamageEvent}.
      */
     @EventHandler
-    protected void onEntityDamage(EntityDamageByEntityEvent e) {
-        LivingEntity livingEntity = Util.parseEntityDamageByEntityEvent(e);
-        if (livingEntity != null && !ExemptionHandler.isLocationInExemptWGRegion(livingEntity.getLocation())) {
-            Bukkit.getScheduler().runTaskLater(this, () -> Util.updateMobHealthNametag(livingEntity), 1);
+    protected void onEntityDamage(EntityDamageEvent e) {
+        Entity entity = e.getEntity();
+        if (entity instanceof LivingEntity && !ExemptionHandler.isLocationInExemptWGRegion(entity.getLocation())) {
+            Bukkit.getScheduler().runTaskLater(this, () -> Util.updateMobHealthNametag((LivingEntity) entity), 1);
         }
     }
 

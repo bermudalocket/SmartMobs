@@ -96,12 +96,16 @@ public final class Zone {
 
     // ------------------------------------------------------------------------------------------------------
     /**
-     * Constructor.
+     * Constructor. Represents an arbitrary zone. A zone is an explicitly 2-dimensional but implicitly
+     * 3-dimensional manifold with a defined center and radius.
      *
      * @param name the zone's name.
      * @param world the world in which this zone is located.
      * @param color the zone's color.
      * @param radius the zone's radius, in whole blocks.
+     * @param x the x-coordinate of the zone center.
+     * @param z the z-coordinate of the zone center.
+     * @param shape the {@link Shape} of the zone.
      */
     public Zone(String name, World world, ChatColor color, int radius, double x, double z, Shape shape) {
         _name = name;
@@ -113,7 +117,8 @@ public final class Zone {
     }
 
     /**
-     * Constructor.
+     * Constructor. Represents an arbitrary zone. A zone is an explicitly 2-dimensional but implicitly
+     * 3-dimensional manifold with a defined center and radius.
      *
      * @param configurationSection the configuration to load.
      */
@@ -216,22 +221,21 @@ public final class Zone {
      * @param livingEntity the LivingEntity to configure.
      */
     void configure(LivingEntity livingEntity) {
-        if (livingEntity == null) {
-            return;
-        }
-        for (Attribute attribute : Attribute.values()) {
-            AttributeInstance attributeInstance = livingEntity.getAttribute(attribute);
-            if (attributeInstance != null) {
-                double baseValue = attributeInstance.getBaseValue();
-                double scalar = _scalarMap.getOrDefault(attribute, 1.0);
-                double newBaseValue = (baseValue * scalar < 2048) ? baseValue*scalar : 2048;
-                attributeInstance.setBaseValue(newBaseValue);
-                if (attribute == Attribute.GENERIC_MAX_HEALTH) {
-                    livingEntity.setHealth(newBaseValue);
+        if (livingEntity != null && !Util.PASSIVE_MOBS.contains(livingEntity.getType())) {
+            for (Attribute attribute : Attribute.values()) {
+                AttributeInstance attributeInstance = livingEntity.getAttribute(attribute);
+                if (attributeInstance != null) {
+                    double baseValue = attributeInstance.getBaseValue();
+                    double scalar = _scalarMap.getOrDefault(attribute, 1.0);
+                    double newBaseValue = (baseValue * scalar < 2048) ? baseValue * scalar : 2048;
+                    attributeInstance.setBaseValue(newBaseValue);
+                    if (attribute == Attribute.GENERIC_MAX_HEALTH) {
+                        livingEntity.setHealth(newBaseValue);
+                    }
                 }
             }
+            Util.updateMobHealthNametag(livingEntity);
         }
-        Util.updateMobHealthNametag(livingEntity);
     }
 
     // ------------------------------------------------------------------------------------------------------

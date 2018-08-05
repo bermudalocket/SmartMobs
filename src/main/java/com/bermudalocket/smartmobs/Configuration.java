@@ -28,6 +28,9 @@ final class Configuration {
      */
     private static final Set<World> WORLDS = new HashSet<>();
 
+    /**
+     * The configurable color applied to all death messages.
+     */
     static ChatColor DEATH_MSG_COLOR = ChatColor.GRAY;
 
     /**
@@ -72,6 +75,9 @@ final class Configuration {
         }
     }
 
+    /**
+     * Reloads serialized statistics data.
+     */
     private static void reloadStatistics() {
         YamlConfiguration stats = YamlConfiguration.loadConfiguration(STATISTICS_FILE);
         ConfigurationSection statSection = stats.getConfigurationSection("statistics");
@@ -81,6 +87,11 @@ final class Configuration {
         Statistics.deserialize(statSection);
     }
 
+    /**
+     * Serializes statistics data.
+     *
+     * @throws IOException if the file could not be written to.
+     */
     private static void saveStatistics() throws IOException {
         YamlConfiguration stats = YamlConfiguration.loadConfiguration(clearFile(STATISTICS_FILE));
         ConfigurationSection statSection = stats.getConfigurationSection("statistics");

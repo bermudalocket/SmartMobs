@@ -29,7 +29,7 @@ import java.util.Set;
  * times. This prevents needless garbage collecting and reinstatiation.
  *
  * During construction, an attack is given a specific {@link Event} class to listen to. The creator can then
- * override the {@link this#checkConditions(Event)} method to fine-tune when this attack should occur.
+ * override the this#checkConditions method to fine-tune when this attack should occur.
  */
 public abstract class AbstractSpecialAttack implements Listener {
 
