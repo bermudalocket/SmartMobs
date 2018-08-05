@@ -40,7 +40,7 @@ final class ReplacementHandler implements Listener {
      *
      * @param zone the zone.
      * @param from the {@link EntityType} to be replaced.
-     * @param to the {@link EntityType} to replace {@param from} with.
+     * @param to the replacement {@link EntityType}.
      * @param probability the probability of this replacement occurring, from [0.0, 1.0].
      */
     static void addReplacement(Zone zone, EntityType from, EntityType to, double probability) {
@@ -130,6 +130,8 @@ final class ReplacementHandler implements Listener {
 
     /**
      * Handles replacements whenever a creature spawns.
+     *
+     * @param e the {@link CreatureSpawnEvent}.
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     protected void onCreatureSpawn(CreatureSpawnEvent e) {

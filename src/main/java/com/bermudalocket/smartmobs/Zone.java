@@ -262,6 +262,7 @@ public final class Zone {
     /**
      * Scales the given xp according to this zone's xp scalar.
      *
+     * @param xp the xp to be scaled.
      * @return the xp scaled according to this zone's xp scalar.
      */
     int scaleXp(int xp) {
@@ -308,6 +309,7 @@ public final class Zone {
      * Removes an entity type's custom drop in this zone.
      *
      * @param entityType the entity type whose drop should be removed.
+     * @param itemStack the custom drop to be removed.
      * @return true if the entity type had a custom drop and it was removed.
      */
     boolean removeCustomDrop(EntityType entityType, ItemStack itemStack) {
