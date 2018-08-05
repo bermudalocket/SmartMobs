@@ -23,8 +23,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+// ----------------------------------------------------------------------------------------------------------
+/**
+ * Flamethower.
+ *
+ * A blaze decides fireballs aren't good enough and focuses an intensely hot flame on its target, lasting a
+ * couple of seconds and inflicting fire damage.
+ */
 public class Flamethrower extends AbstractSpecialAttack {
 
+    // ------------------------------------------------------------------------------------------------------
+    /**
+     * Constructor.
+     */
     public Flamethrower() {
         super("flamethrower", ProjectileLaunchEvent.class, new Randomizable(), new Reinforceable());
     }

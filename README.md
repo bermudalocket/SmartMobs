@@ -40,23 +40,23 @@ One may refer to the following list of special attacks and their properties:
 
 | Attack        | Property           | Value  |
 | ------------- |-------------| -----|
-| Bloat      | probability | [0.0, 1.0] |
+| [Bloat](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/Bloat.html)      | probability | [0.0, 1.0] |
 |       | minReinforcements      |   [0, ∞) |
 |  | maxReinforcements      |    [0, ∞) |
-| Chemistry | probability | [0.0, 1.0] |
+| [Chemistry](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/Chemistry.html) | probability | [0.0, 1.0] |
 | | minReinforcements | [0, ∞) |
 | | maxReinforcements | [0, ∞) |
 | | choices | \{ x : x ∈ [PotionEffectType](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html) \} |
-| EnderDance | probability | [0.0, 1.0] |
+| [EnderDance](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/EnderDance.html) | probability | [0.0, 1.0] |
 | | minReinforcements | [0, ∞) |
 | | maxReinforcements | [0, ∞) |
-| Flamethrower | probability | [0.0, 1.0] |
+| [Flamethrower](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/Flamethrower.html) | probability | [0.0, 1.0] |
 | | minReinforcements | [0, ∞) |
 | | maxReinforcements | [0, ∞) |
-| Greneggs | probability | [0.0, 1.0] |
+| [Greneggs](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/Greneggs.html) | probability | [0.0, 1.0] |
 | | minReinforcements | [0, ∞) |
 | | maxReinforcements | [0, ∞) |
-| Resurrection | probability | [0.0, 1.0] |
+| [Resurrection](https://bermudalocket.github.io/SmartMobs/com/bermudalocket/smartmobs/attack/Resurrection.html) | probability | [0.0, 1.0] |
 | | minReinforcements | [0, ∞) |
 | | maxReinforcements | [0, ∞) |
 

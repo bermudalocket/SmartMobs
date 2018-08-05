@@ -27,19 +27,19 @@ import org.bukkit.potion.PotionEffectType;
 
 // ----------------------------------------------------------------------------------------------------------
 /**
- * Creeper Chemistry.
+ * Chemistry.
  *
  * Upon explosion, a creeper launches creeper reinforcements in all directions. Those reinforcements will
  * immediately explode upon landing, releasing an {@link AreaEffectCloud}.
  */
-public final class CreeperChemistry extends AbstractSpecialAttack {
+public final class Chemistry extends AbstractSpecialAttack {
 
     // ------------------------------------------------------------------------------------------------------
     /**
      * Constructor.
      */
-    public CreeperChemistry() {
-        super("CreeperChemistry",
+    public Chemistry() {
+        super("Chemistry",
                 EntityExplodeEvent.class,
                 new Randomizable(),
                 new Reinforceable(),

@@ -6,7 +6,7 @@
     <groupId>com.bermudalocket</groupId>
     <name>SmartMobs</name>
     <artifactId>SmartMobs</artifactId>
-    <version>0.1.11</version>
+    <version>0.1.12</version>
     <packaging>jar</packaging>
     <description>Gives mobs special attacks.</description>
     <url>https://github.com/bermudalocket/${project.name}</url>

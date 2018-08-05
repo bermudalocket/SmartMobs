@@ -23,13 +23,20 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class Resurrect extends AbstractSpecialAttack {
+// ----------------------------------------------------------------------------------------------------------
+/**
+ * Resurrection.
+ *
+ * Skeletons and strays hunt in packs now! Upon being hit, a skeleton (or stray) will raise from the dead a
+ * pack of bony reinforcements in a series of lightning strikes to make its attacker's life hell.
+ */
+public final class Resurrection extends AbstractSpecialAttack {
 
     private static final Set<EntityType> SUPPORTED_MOBS = new HashSet<>(Arrays.asList(
             EntityType.SKELETON, EntityType.STRAY
     ));
 
-    public Resurrect() {
+    public Resurrection() {
         super("resurrect", EntityDamageByEntityEvent.class, new Randomizable(), new Reinforceable());
     }
 

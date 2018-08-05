@@ -23,14 +23,28 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO : change to EggBomb, make generic with entity types. add command to add/remove more types.
-public final class SpiderEggBomb extends AbstractSpecialAttack {
+// ----------------------------------------------------------------------------------------------------------
+/**
+ * Greneggs.
+ *
+ * Upon being attacked, spiders and cave spiders may be so startled that they lay an egg. Might not want to
+ * stick around too long, though... who knows what will hatch.
+ */
+public final class Greneggs extends AbstractSpecialAttack {
 
+    // ------------------------------------------------------------------------------------------------------
+    /**
+     * The supported EntityTypes.
+     */
     private static final Set<EntityType> SUPPORTED_MOBS = new HashSet<>(Arrays.asList(
             EntityType.SPIDER, EntityType.CAVE_SPIDER
     ));
 
-    public SpiderEggBomb() {
+    // ------------------------------------------------------------------------------------------------------
+    /**
+     * Constructor.
+     */
+    public Greneggs() {
         super("eggbomb", EntityDamageByEntityEvent.class, new Randomizable(), new Reinforceable());
     }
 

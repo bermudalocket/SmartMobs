@@ -1,12 +1,12 @@
 package com.bermudalocket.smartmobs;
 
 import com.bermudalocket.smartmobs.attack.Bloat;
-import com.bermudalocket.smartmobs.attack.CreeperChemistry;
+import com.bermudalocket.smartmobs.attack.Chemistry;
 import com.bermudalocket.smartmobs.attack.EnderDance;
 import com.bermudalocket.smartmobs.attack.Flamethrower;
-import com.bermudalocket.smartmobs.attack.Resurrect;
+import com.bermudalocket.smartmobs.attack.Resurrection;
 import com.bermudalocket.smartmobs.attack.SpecialAttackRegistry;
-import com.bermudalocket.smartmobs.attack.SpiderEggBomb;
+import com.bermudalocket.smartmobs.attack.Greneggs;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
@@ -63,9 +63,9 @@ public final class SmartMobs extends JavaPlugin implements Listener {
         PLUGIN = this;
 
         SpecialAttackRegistry.register(new Bloat());
-        SpecialAttackRegistry.register(new Resurrect());
-        SpecialAttackRegistry.register(new SpiderEggBomb());
-        SpecialAttackRegistry.register(new CreeperChemistry());
+        SpecialAttackRegistry.register(new Resurrection());
+        SpecialAttackRegistry.register(new Greneggs());
+        SpecialAttackRegistry.register(new Chemistry());
         SpecialAttackRegistry.register(new EnderDance());
         SpecialAttackRegistry.register(new Flamethrower());
 
