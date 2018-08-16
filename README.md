@@ -98,6 +98,8 @@ These modules are specified during construction, i.e.:
 
 This attack is named `CreeperChemistry`, it will listen for `EntityExplodeEvent`s, and it implements `Randomizable`, `Reinforceable`, and `Itemizable`. Note that when implementing `Itemizable` you must override the `Itemizable#verifyType` method to specify what kind of data you are looking for in the list. In this case, it only accepts strings that match an `EffectType` (which is just an custom enumerated version of `PotionEffectType`).
 
+The last step is to register your new special attack with the `SpecialAttackRegistry` by passing your new attack's class to the `SpecialAttackRegistry#register` method: `SmartMobs.SpecialAttackRegistry.register(YourNewAttack.class)`.
+
 ## Exemptions
 
 Are there certain areas within your world that you do not want SmartMobs handling? If your server is running WorldGuard, you may instruct SmartMobs to ignore a WorldGuard region with the command `/sm exemptions`. To add or remove an exemption, run `/sm exemptions <create/remove> <wg-region-name>`. To list all currently exempted regions, run `/sm exemptions list`.
