@@ -126,7 +126,7 @@ public class Statistics implements Listener {
         if (deathsPerPlayerSection != null) {
             for (String uuidString : deathsPerPlayerSection.getKeys(false)) {
                 UUID uuid = UUID.fromString(uuidString);
-                DEATHS_PER_PLAYER.put(uuid, deathsPerZoneSection.getInt(uuidString));
+                DEATHS_PER_PLAYER.put(uuid, deathsPerPlayerSection.getInt(uuidString));
             }
         }
         ConfigurationSection killsPerPlayerSection = configurationSection.getConfigurationSection("kills-per-player");
