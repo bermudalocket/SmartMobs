@@ -2,6 +2,7 @@ package com.bermudalocket.smartmobs;
 
 import com.bermudalocket.smartmobs.attack.AbstractSpecialAttack;
 import com.bermudalocket.smartmobs.attack.SpecialAttackRegistry;
+import com.bermudalocket.smartmobs.util.ManagedWorld;
 import com.bermudalocket.smartmobs.util.Replacement;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,9 +25,9 @@ import java.util.Set;
 final class Configuration {
 
     /**
-     * A set of all {@link World}s that this plugin should manage.
+     * A set of all {@link ManagedWorld}s within the scope of this plugin's features.
      */
-    private static final Set<World> WORLDS = new HashSet<>();
+    private static final Set<ManagedWorld> WORLDS = new HashSet<>();
 
     /**
      * The configurable color applied to all death messages.
@@ -105,7 +106,7 @@ final class Configuration {
     /**
      * Reloads the list of managed worlds from config.yml.
      */
-    private static void reloadTopLevel() {
+    private static synchronized void reloadTopLevel() {
         FileConfiguration config = SmartMobs.PLUGIN.getConfig();
 
         String deathMsgColorString = config.getString("death-msg-color", "GRAY");
@@ -116,12 +117,17 @@ final class Configuration {
             DEATH_MSG_COLOR = ChatColor.GRAY;
         }
 
-        Set<World> worlds = new HashSet<>();
-        for (String worldName : config.getStringList("worlds")) {
+        ConfigurationSection worldSection = config.getConfigurationSection("worlds");
+        if (worldSection == null) {
+            worldSection = config.createSection("worlds");
+        }
+        Set<ManagedWorld> worlds = new HashSet<>();
+        for (String worldName : worldSection.getKeys(false)) {
             SmartMobs.log("Looking for world " + worldName + "...");
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                worlds.add(world);
+                boolean managePassiveMobs = config.getBoolean("worlds." + worldName + ".manage-passive-mobs", false);
+                worlds.add(new ManagedWorld(world).setManagePassiveMobs(managePassiveMobs));
                 SmartMobs.log("Found world " + worldName + "!");
             } else {
                 SmartMobs.log("World " + config.getString("world") + " does not exist!");
@@ -256,8 +262,14 @@ final class Configuration {
      * @param world the world.
      * @return true if the world should be managed by this plugin.
      */
-    static boolean isWorldInScope(World world) {
-        return WORLDS.contains(world);
+    static synchronized boolean isWorldInScope(World world) {
+        return WORLDS.stream().anyMatch(managedWorld -> managedWorld.matches(world));
+    }
+
+    static synchronized ManagedWorld adapt(World world) {
+        return WORLDS.stream().filter(managedWorld -> managedWorld.matches(world))
+                              .findFirst()
+                              .orElse(null);
     }
 
     /**

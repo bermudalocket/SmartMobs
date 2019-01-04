@@ -7,6 +7,7 @@ website: ${project.url}
 main: com.bermudalocket.smartmobs.SmartMobs
 softdepend: [ Multiverse-Core, WorldGuard ]
 depend: [ EntityMeta ]
+api-version: 1.13
 
 permissions:
   smartmobs.admin:

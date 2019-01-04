@@ -12,9 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
@@ -79,42 +77,7 @@ public final class Bloat extends AbstractSpecialAttack {
         startTimedExplosion(entity);
     }
 
-    // ------------------------------------------------------------------------------------------------------
-    /**
-     * Summons an {@link AreaEffectCloud} at the given location with given properties.
-     *
-     * @param loc the location.
-     * @param duration the duration.
-     * @param radius the radius.
-     * @param color the color.
-     * @return the created {@link AreaEffectCloud}.
-     */
-    private AreaEffectCloud summonCloud(Location loc, double duration, float radius, Color color) {
-        return summonCloud(loc, duration, radius, color, null);
-    }
-
-    /**
-     * Summons an {@link AreaEffectCloud} at the given location with given properties.
-     *
-     * @param loc the location.
-     * @param duration the duration.
-     * @param radius the radius.
-     * @param color the color.
-     * @param particle the particle type.
-     * @return the created {@link AreaEffectCloud}.
-     */
-    private AreaEffectCloud summonCloud(Location loc, double duration, float radius, Color color, Particle particle) {
-        World world = loc.getWorld();
-        AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(loc, EntityType.AREA_EFFECT_CLOUD);
-        cloud.setColor(color);
-        cloud.setRadius(radius);
-        if (particle != null) {
-            cloud.setParticle(particle);
-        }
-        cloud.setDuration((int) (Util.TPS * duration));
-        return cloud;
-    }
-
+    // ------------------------------------------------------------------------
     /**
      * Starts the explosion and reinforcement summoning process.
      *
@@ -136,7 +99,7 @@ public final class Bloat extends AbstractSpecialAttack {
         World world = loc.getWorld();
         world.spawnParticle(Particle.EXPLOSION_LARGE, loc, 1);
         world.spawnParticle(Particle.BLOCK_DUST, loc, 150, 0.2, 0.08, 0.2, 0.3, new MaterialData(Material.REDSTONE_BLOCK));
-        world.spawnParticle(Particle.ITEM_CRACK, loc, 150, 0.16, 0.12, 0.16, 0.2, new ItemStack(Material.PORK));
+        world.spawnParticle(Particle.ITEM_CRACK, loc, 150, 0.16, 0.12, 0.16, 0.2, new ItemStack(Material.PORKCHOP));
         world.spawnParticle(Particle.BLOCK_DUST, loc, 150, new MaterialData(Material.IRON_ORE));
         world.createExplosion(loc.getX(), loc.getY(), loc.getZ(), 1f, false, true);
         world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1, 2);

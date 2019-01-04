@@ -6,7 +6,7 @@
     <groupId>com.bermudalocket</groupId>
     <name>SmartMobs</name>
     <artifactId>SmartMobs</artifactId>
-    <version>0.1.12</version>
+    <version>0.1.13</version>
     <packaging>jar</packaging>
     <description>Gives mobs special attacks.</description>
     <url>https://github.com/bermudalocket/${project.name}</url>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <version>1.13-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>nu.nerd</groupId>
@@ -66,12 +66,24 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
-            <version>6.2</version>
+            <version>7.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.bukkit</artifactId>
+                    <groupId>bukkit</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-core</artifactId>
-            <version>6.1.4-SNAPSHOT</version>
+            <version>7.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.bukkit</artifactId>
+                    <groupId>bukkit</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>de.slikey</groupId>

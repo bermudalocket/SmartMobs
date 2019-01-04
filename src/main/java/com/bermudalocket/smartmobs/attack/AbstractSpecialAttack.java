@@ -6,7 +6,12 @@ import com.bermudalocket.smartmobs.Util;
 import com.bermudalocket.smartmobs.attack.module.AbstractModule;
 import com.bermudalocket.smartmobs.attack.module.ModuleType;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -16,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.plugin.EventExecutor;
+import org.bukkit.potion.PotionData;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -63,7 +69,61 @@ public abstract class AbstractSpecialAttack implements Listener {
         dynamicallyRegisterEvent(eventClass);
     }
 
-    // ------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
+    /**
+     * Summons an {@link AreaEffectCloud} at the given location with given properties.
+     *
+     * @param loc the location.
+     * @param duration the duration in seconds.
+     * @param radius the radius in blocks.
+     * @param color the color.
+     * @return the created {@link AreaEffectCloud}.
+     */
+    static AreaEffectCloud summonCloud(Location loc, double duration, float radius, Color color) {
+        return summonCloud(loc, duration, radius, color, null, null);
+    }
+
+    // ------------------------------------------------------------------------
+    /**
+     * Summons an {@link AreaEffectCloud} at the given location with given properties.
+     *
+     * @param loc the location.
+     * @param duration the duration in seconds.
+     * @param radius the radius in blocks.
+     * @param color the color.
+     * @return the created {@link AreaEffectCloud}.
+     */
+    static AreaEffectCloud summonCloud(Location loc, double duration, float radius, Color color, Particle particle) {
+        return summonCloud(loc, duration, radius, color, particle, null);
+    }
+
+    // ------------------------------------------------------------------------
+    /**
+     * Summons an {@link AreaEffectCloud} at the given location with given properties.
+     *
+     * @param loc the location.
+     * @param duration the duration in seconds.
+     * @param radius the radius in blocks.
+     * @param color the color.
+     * @param particle the particle type.
+     * @return the created {@link AreaEffectCloud}.
+     */
+    private static AreaEffectCloud summonCloud(Location loc, double duration, float radius, Color color, Particle particle, PotionData potionData) {
+        World world = loc.getWorld();
+        AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(loc, EntityType.AREA_EFFECT_CLOUD);
+        cloud.setColor(color);
+        cloud.setRadius(radius);
+        if (potionData != null) {
+            cloud.setBasePotionData(potionData);
+        }
+        if (particle != null) {
+            cloud.setParticle(particle);
+        }
+        cloud.setDuration((int) (Util.TPS * duration));
+        return cloud;
+    }
+
+    // ------------------------------------------------------------------------
     /**
      * Sets the state of this attack.
      *

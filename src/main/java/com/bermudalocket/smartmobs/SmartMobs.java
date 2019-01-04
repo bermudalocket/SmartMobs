@@ -4,16 +4,17 @@ import com.bermudalocket.smartmobs.attack.Bloat;
 import com.bermudalocket.smartmobs.attack.Chemistry;
 import com.bermudalocket.smartmobs.attack.EnderDance;
 import com.bermudalocket.smartmobs.attack.Flamethrower;
-import com.bermudalocket.smartmobs.attack.Resurrection;
-import com.bermudalocket.smartmobs.attack.SpecialAttackRegistry;
 import com.bermudalocket.smartmobs.attack.Greneggs;
+import com.bermudalocket.smartmobs.attack.Resurrection;
+import com.bermudalocket.smartmobs.attack.Siren;
+import com.bermudalocket.smartmobs.attack.SpecialAttackRegistry;
+import com.bermudalocket.smartmobs.util.ManagedWorld;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import nu.nerd.entitymeta.EntityMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -26,9 +27,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Arrays;
-import java.util.HashSet;
 
 import static com.bermudalocket.smartmobs.Util.CYAN;
 import static com.bermudalocket.smartmobs.Util.GRAY;
@@ -68,6 +66,7 @@ public final class SmartMobs extends JavaPlugin implements Listener {
         SpecialAttackRegistry.register(new Chemistry());
         SpecialAttackRegistry.register(new EnderDance());
         SpecialAttackRegistry.register(new Flamethrower());
+        SpecialAttackRegistry.register(new Siren());
 
         Configuration.reload(false);
 
@@ -81,26 +80,6 @@ public final class SmartMobs extends JavaPlugin implements Listener {
         new Statistics();
 
         Bukkit.getPluginManager().registerEvents(PLUGIN, PLUGIN);
-
-        // remove after fundraiser
-        World world = Bukkit.getWorld("world");
-        HashSet<Location> locations = new HashSet<>(Arrays.asList(
-                new Location(world, -1126, 0, -1043),
-                new Location(world, -876, 0, 406),
-                new Location(world, 337, 0, 460),
-                new Location(world, 749, 0, -481),
-                new Location(world, -153, 0, -566),
-                new Location(world, 1329, 0, -1317),
-                new Location(world, -348, 0, 562),
-                new Location(world, -794, 0, -675),
-                new Location(world, -516, 0, -235),
-                new Location(world, -880, 0, 1157),
-                new Location(world, 801, 0, 46),
-                new Location(world, 985, 0, 901),
-                new Location(world, -1336, 0, -41),
-                new Location(world, 162, 0, 1230)));
-        locations.stream().map(world::getChunkAt)
-                          .forEach(world::loadChunk);
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -168,11 +147,18 @@ public final class SmartMobs extends JavaPlugin implements Listener {
             if (!ExemptionHandler.isLocationInExemptWGRegion(e.getLocation())) {
                 if (Configuration.isWorldInScope(world)) {
 
-                    if (Util.PASSIVE_MOBS.contains(livingEntity.getType())) {
-                        if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.SPAWNER_EGG
-                                    && e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.BREEDING) {
-                            e.setCancelled(true);
-                            return;
+                    if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM) {
+                        return;
+                    }
+
+                    ManagedWorld managedWorld = Configuration.adapt(world);
+                    if (managedWorld.managePassiveMobs()) {
+                        if (Util.PASSIVE_MOBS.contains(livingEntity.getType())) {
+                            if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.SPAWNER_EGG
+                                && e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.BREEDING) {
+                                e.setCancelled(true);
+                                return;
+                            }
                         }
                     }
 
