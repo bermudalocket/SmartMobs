@@ -3,6 +3,7 @@ package com.bermudalocket.smartmobs;
 import com.bermudalocket.smartmobs.attack.AbstractSpecialAttack;
 import com.bermudalocket.smartmobs.attack.SpecialAttackRegistry;
 import com.bermudalocket.smartmobs.attack.module.AbstractModule;
+import com.bermudalocket.smartmobs.attack.module.Gaussianizable;
 import com.bermudalocket.smartmobs.attack.module.Itemizable;
 import com.bermudalocket.smartmobs.attack.module.ModuleType;
 import com.bermudalocket.smartmobs.attack.module.Randomizable;
@@ -29,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -539,7 +541,20 @@ public final class Commands implements CommandExecutor {
                         String propertyName = args[4];
                         String value = args[5];
 
-                        if (propertyName.equalsIgnoreCase("probability")) {                  // PROBABILITY
+                        if (propertyName.equalsIgnoreCase("pdf")) {                         // PROBABILITY DENSITY FUNCTION
+                            // value is formatted as MEAN:STDEV
+                            String[] splitValue = value.split(":");
+                            try {
+                                double mean = Double.valueOf(splitValue[0]);
+                                double stdev = Double.valueOf(splitValue[1]);
+                                Gaussianizable pdf = (Gaussianizable) attack.getModule(ModuleType.GAUSSIANIZABLE);
+                                pdf.setDistribution(zone, mean, stdev);
+                            } catch (Exception e) {
+                                Arrays.stream(e.getStackTrace())
+                                      .map(StackTraceElement::toString)
+                                      .forEach(SmartMobs::log);
+                            }
+                        } else if (propertyName.equalsIgnoreCase("probability")) {                  // PROBABILITY
                             double probability = Double.valueOf(value);
                             Randomizable randomizable = (Randomizable) attack.getModule(ModuleType.RANDOMIZABLE);
                             randomizable.setProbability(zone, probability);

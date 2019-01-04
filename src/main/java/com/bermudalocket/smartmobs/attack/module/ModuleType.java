@@ -5,6 +5,6 @@ public enum ModuleType {
     RANDOMIZABLE,
     REINFORCEABLE,
     ITEMIZABLE,
-    BINOMIALIZABLE
+    GAUSSIANIZABLE
 
 }
