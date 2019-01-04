@@ -1,5 +1,9 @@
 package com.bermudalocket.smartmobs;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
@@ -27,9 +31,11 @@ public class ExemptionHandler {
         if (SmartMobs.WORLDGUARD == null) {
             return false;
         }
-        RegionManager rm = SmartMobs.WORLDGUARD.getRegionContainer().get(loc.getWorld());
+        World wrappedWorld = BukkitAdapter.adapt(loc.getWorld());
+        RegionManager rm = WorldGuard.getInstance().getPlatform().getRegionContainer().get(wrappedWorld);
         if (rm != null) {
-            for (ProtectedRegion r : rm.getApplicableRegions(loc)) {
+            BlockVector3 vector3 = BlockVector3.at(loc.getX(), loc.getY(), loc.getZ());
+            for (ProtectedRegion r : rm.getApplicableRegions(vector3)) {
                 if (isRegionExempt(r.getId())) {
                     return true;
                 }
