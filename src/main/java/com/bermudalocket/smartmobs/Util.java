@@ -1,5 +1,6 @@
 package com.bermudalocket.smartmobs;
 
+import com.bermudalocket.smartmobs.util.ManagedWorld;
 import nu.nerd.entitymeta.EntityMeta;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
@@ -206,6 +207,13 @@ public final class Util {
     static void updateMobHealthNametag(LivingEntity livingEntity) {
         Zone zone = ZoneHandler.getSpawnZone(livingEntity);
         if (zone != null) {
+
+            // is world configured to show nametags?
+            ManagedWorld world = Configuration.adapt(zone.getWorld());
+            if (!world.showHealthNametags()) {
+                return;
+            }
+
             String originalName = getOriginalCustomName(livingEntity);
             if (originalName == null) {
                 originalName = livingEntity.getType().toString().toLowerCase();

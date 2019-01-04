@@ -8,6 +8,8 @@ public class ManagedWorld {
 
     private boolean _managePassiveMobs;
 
+    private boolean _showHealthNametags;
+
     public ManagedWorld(World world) {
         _world = world;
     }
@@ -19,6 +21,15 @@ public class ManagedWorld {
 
     public boolean managePassiveMobs() {
         return _managePassiveMobs;
+    }
+
+    public ManagedWorld setShowHealthNametags(boolean state) {
+        _showHealthNametags = state;
+        return this;
+    }
+
+    public boolean showHealthNametags() {
+        return _showHealthNametags;
     }
 
     public World getWorld() {

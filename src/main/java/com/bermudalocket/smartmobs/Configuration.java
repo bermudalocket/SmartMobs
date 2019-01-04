@@ -127,7 +127,9 @@ final class Configuration {
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
                 boolean managePassiveMobs = config.getBoolean("worlds." + worldName + ".manage-passive-mobs", false);
-                worlds.add(new ManagedWorld(world).setManagePassiveMobs(managePassiveMobs));
+                boolean showHealthNametags = config.getBoolean("worlds." + worldName + ".show-health-nametags", true);
+                worlds.add(new ManagedWorld(world).setManagePassiveMobs(managePassiveMobs)
+                                                  .setShowHealthNametags(showHealthNametags));
                 SmartMobs.log("Found world " + worldName + "!");
             } else {
                 SmartMobs.log("World " + config.getString("world") + " does not exist!");

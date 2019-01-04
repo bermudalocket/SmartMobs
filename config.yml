@@ -1,3 +1,4 @@
 worlds:
   world:
     manage-passive-mobs: false
+    show-health-nametags: false

@@ -137,6 +137,15 @@ public final class Zone {
     }
 
     /**
+     * Returns this zone's world.
+     *
+     * @return this zone's world.
+     */
+    public World getWorld() {
+        return _world;
+    }
+
+    /**
      * Returns this zone's color.
      *
      * @return this zone's color.
