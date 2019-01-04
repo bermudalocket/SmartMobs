@@ -45,7 +45,7 @@ public final class Greneggs extends AbstractSpecialAttack {
      * Constructor.
      */
     public Greneggs() {
-        super("eggbomb", EntityDamageByEntityEvent.class, new Randomizable(), new Reinforceable());
+        super("greneggs", EntityDamageByEntityEvent.class, new Randomizable(), new Reinforceable());
     }
 
     protected boolean checkConditions(Event event) {
