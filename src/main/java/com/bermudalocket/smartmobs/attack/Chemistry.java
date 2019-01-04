@@ -119,11 +119,8 @@ public final class Chemistry extends AbstractSpecialAttack {
         cloud.setDuration(Util.TPS*5);
 
         EffectType effectType = EffectType.of(type);
-
         Particle particle = null;
         Color color = null;
-
-
 
         switch (effectType) {
             case ABSORBPTION:
@@ -144,7 +141,7 @@ public final class Chemistry extends AbstractSpecialAttack {
                 break;
             case FAST_DIGGING:
                 color = Color.SILVER;
-                particle = Particle.FOOTSTEP;
+                particle = Particle.END_ROD;
                 break;
             case FIRE_RESISTANCE:
                 color = Color.ORANGE;

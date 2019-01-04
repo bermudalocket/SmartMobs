@@ -81,7 +81,7 @@ public final class Greneggs extends AbstractSpecialAttack {
 
         Runnable tick = () -> {
             egg.setGlowing(true);
-            egg.getWorld().playSound(egg.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+            egg.getWorld().playSound(egg.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
             Bukkit.getScheduler().runTaskLater(SmartMobs.PLUGIN, () -> egg.setGlowing(false), 3);
         };
         Runnable explode = () -> {

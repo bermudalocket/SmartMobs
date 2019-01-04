@@ -148,7 +148,7 @@ public final class Util {
      * @return the player's skull.
      */
     static ItemStack getPlayerHead(String playerName) {
-        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (byte) 3);
+        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
         meta.setOwner(playerName);
         itemStack.setItemMeta(meta);
