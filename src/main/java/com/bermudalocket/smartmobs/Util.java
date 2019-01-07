@@ -210,7 +210,7 @@ public final class Util {
 
             // is world configured to show nametags?
             ManagedWorld world = Configuration.adapt(zone.getWorld());
-            if (!world.showHealthNametags()) {
+            if (world == null || !world.showHealthNametags()) {
                 return;
             }
 
