@@ -8,13 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Manages per-zone mob replacements.
@@ -142,25 +139,21 @@ final class ReplacementHandler implements Listener {
             EntityType to = getReplacement(zone, from);
             if (to != null) {
                 e.setCancelled(true);
+                if (to == EntityType.GHAST) {
+                    loc.add(0, 20, 0);
+                }
                 loc.getWorld().spawnEntity(loc, to);
             }
 
             // easter egg
+            /*
             if (from == EntityType.VEX) {
                 String playerName = (String) Util.getRandomElement(ADMINS);
                 ItemStack playerHead = Util.getPlayerHead(playerName);
                 e.getEntity().getEquipment().setHelmet(playerHead);
             }
+            */
         }
     }
-
-    /**
-     * A set containing the names of all administrators. Used for the Vex easter egg.
-     */
-    private static final Set<String> ADMINS = new HashSet<>(Arrays.asList(
-            "pez252", "torteela", "Zomise", "cujobear",
-            "bermudalocket", "Challenger2", "Deaygo", "Dumbo52", "redwall_hp", "totemo",
-            "Bardidley", "Hollifer", "Mewcifer",
-            "Barlimore", "ieuweh", "Silversunset", "Sir_Didymus"));
 
 }
