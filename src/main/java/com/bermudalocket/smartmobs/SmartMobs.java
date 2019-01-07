@@ -185,7 +185,7 @@ public final class SmartMobs extends JavaPlugin implements Listener {
      *
      * @param e the {@link PlayerDeathEvent}.
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     protected void onPlayerDeath(PlayerDeathEvent e) {
         e.setDeathMessage(Configuration.DEATH_MSG_COLOR + e.getDeathMessage());
     }
